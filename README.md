@@ -37,3 +37,19 @@ Predict the complaint_category of a 311 service request based on borough, agency
 - Encode categorical variables (borough, agency)
 - Fit baseline logistic regression on complaint_category
 - Evaluate and interpret results
+## 🔁 How to Re-run This Project
+
+To reproduce this project, follow these steps:
+
+1. Launch AWS Learner Lab and ensure all services are active
+2. Upload raw NYC 311 datasets to an S3 bucket under a `raw/` folder
+3. Use Athena to create tables and run queries (see `sql/athena_to_modeling.sql`)
+4. Export the modeling dataset as a CSV file
+5. Upload the CSV file to the `modeling/` folder in your S3 bucket
+6. Open a SageMaker notebook instance
+7. Load the dataset from S3 and run the modeling notebook
+
+## Notes
+- Data must be converted to numeric format for modeling
+- The target (label) column should be first for SageMaker Linear Learner
+- AWS services (S3, Athena, SageMaker) must be configured before running
