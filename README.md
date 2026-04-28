@@ -88,33 +88,30 @@ This finding directly answers the stakeholder question about routing overnight c
 
 ## Results & Evaluation
 
-## Realistic Model Performance (No Agency Feature)
+### Classification Report
 
-| Metric | Score | Interpretation |
-|--------|-------|----------------|
-| Accuracy | 48.4% | 2x better than random guessing (25%) |
-| Precision | 41.6% | Room for improvement |
-| Recall | 48.4% | Consistent performance |
+| Category | Precision | Recall | F1-Score | Support |
+|----------|-----------|--------|----------|---------|
+| Housing | 0.53 | 0.50 | 0.52 | 11,159 |
+| Noise | 0.42 | 0.24 | 0.30 | 5,039 |
+| Sanitation | 0.56 | 0.19 | 0.28 | 3,888 |
+| Traffic | 0.46 | 0.69 | 0.55 | 11,363 |
+
+**Overall Accuracy:** 49%
 
 ### Why This Is Acceptable
 
-Without knowing the agency upfront (real-world scenario), 48.4% accuracy is a **solid baseline** that would:
+Without knowing the agency upfront (real-world scenario), 48.8% accuracy is a **solid baseline** that would:
 - Reduce operator cognitive load
 - Provide suggestions for overnight calls (like 2am Bronx)
 - Beat human guessing by ~20%
 
 ### Business Value
 
-Even at 48.4% accuracy:
+Even at 48.8% accuracy:
 - **2am Bronx calls:** Model correctly identifies Housing as top category
 - **Routing suggestions:** Operators get 2x better than random recommendations
 - **Iterative improvement:** Can add more features (seasonality, weather, holidays)
-
-### Limitations
-
-- Housing ↔ Traffic confusion is the main error source
-- Adding time-based features could improve to ~55%
-- Deploy as "suggestion tool" not "automatic router"
 
 ### What We Learned About Model Validation
 
@@ -122,29 +119,18 @@ Even at 48.4% accuracy:
 - Problem: Model "cheated" by memorizing agency names
 - Example: HPD → Housing (100% accurate, but useless for routing)
 
-**Final model (without agency):** 48.4% accuracy ✅  
+**Final model (without agency):** 48.8% accuracy ✅  
 - Realistic for operator use (agency unknown at call start)
 - Still 2x better than random guessing (25%)
 - Identifies Housing as top category at 2am in Bronx
 
-
 ### Model Performance Summary
 
-| Category | Can it predict? | Why/Why not |
-|----------|----------------|--------------|
-| Housing | ✅ Yes (51% precision) | Strong time/location patterns |
-| Traffic | ✅ Yes (46% precision) | Peak hour patterns |
-| Sanitation | ⚠️ Weak (57% precision, 20% recall) | Needs more features |
-| Noise | ❌ No (0% recall) | Requires agency |
-
-### Why Noise Can't Be Predicted
-
-Without the `agency` feature (which operators don't know at call time), Noise complaints are indistinguishable from Housing and Traffic complaints using only:
-- Borough
-- Time of day  
-- Day of week
-- Zip code
-
-Our model appropriately achieves 0% recall on Noise rather than making random guesses that would misroute calls.
+| Category | Precision | Recall | Can it predict? |
+|----------|-----------|--------|-----------------|
+| Housing | 0.53 | 0.50 | ✅ Yes - strong time/location patterns |
+| Traffic | 0.46 | 0.69 | ✅ Yes - peak hour patterns |
+| Sanitation | 0.56 | 0.19 | ⚠️ Weak - needs more features |
+| Noise | 0.42 | 0.24 | ⚠️ Partial - catches ~1 in 4 calls |
 
 **Key Insight:** Always validate that your features would be available at prediction time!
