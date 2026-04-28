@@ -63,14 +63,19 @@ NYC Open Data → AWS S3 (Raw) → Athena Query → S3 (Clean Data) → Jupyter 
 This finding directly answers the stakeholder question about routing overnight calls. Operators should prioritize routing to HPD/NYCHA for housing issues during late-night hours.
 
 ## Repository Structure
-├── notebooks/
-│ └── modeling_train_and_eval.ipynb # Main modeling code
-├── sql/
-│ └── athena_to_modeling.sql # Data extraction query
-├── reports/
-│ └── [analysis reports]
-├── DATA_DICTIONARY.md # Column descriptions
-└── README.md # This file
+
+- **notebooks/**
+  - `modeling_train_and_eval.ipynb` - Main modeling code
+
+- **sql/**
+  - `athena_to_modeling.sql` - Data extraction query
+
+- **reports/**
+  - (Analysis reports folder)
+
+- `DATA_DICTIONARY.md` - Column descriptions
+
+- `README.md` - This file
 
 
 ## How to Reproduce
