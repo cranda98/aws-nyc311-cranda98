@@ -127,4 +127,23 @@ Even at 48.4% accuracy:
 - Still 2x better than random guessing (25%)
 - Identifies Housing as top category at 2am in Bronx
 
+
+### Model Performance Summary
+
+| Category | Can it predict? | Why/Why not |
+|----------|----------------|--------------|
+| Housing | ✅ Yes (51% precision) | Strong time/location patterns |
+| Traffic | ✅ Yes (46% precision) | Peak hour patterns |
+| Sanitation | ⚠️ Weak (57% precision, 20% recall) | Needs more features |
+| Noise | ❌ No (0% recall) | Requires agency or acoustic data |
+
+### Why Noise Can't Be Predicted
+
+Without the `agency` feature (which operators don't know at call time), Noise complaints are indistinguishable from other categories. In the real world, operators would need to:
+1. Ask clarifying questions
+2. Listen for background sounds
+3. Use the address to determine if noise is likely
+
+Our model appropriately abstains from Noise prediction rather than guessing wrong.
+
 **Key Insight:** Always validate that your features would be available at prediction time!
