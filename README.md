@@ -64,7 +64,7 @@ This finding directly answers the stakeholder question about routing overnight c
 
 ## Repository Structure
 
-- **notebooks/**
+- **notebook/**
   - `modeling_train_and_eval.ipynb` - Main modeling code
 
 - **sql/**
